@@ -29,7 +29,7 @@ func GenerateCryptoCLI(length uint64, source string) string {
 func main() {
 	flag.Parse()
 	if *version {
-		fmt.Println("v1.0.2")
+		fmt.Println("v1.0.4")
 		return
 	}
 	if *length == 0 {
