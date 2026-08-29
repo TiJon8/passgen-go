@@ -13,11 +13,12 @@ var (
 	seed = flag.Int64("seed", 0, "an optional seed for pseudo mode")
 	source = flag.String("source", "", "an optional characters string for password combinations")
 	count = flag.Int64("count", 1, "count of generation; default: 1")
+	version = flag.Bool("version", true, "package version")
 )
 
-func GeneratePseudoCLI(length uint64, seed int64, source string) string {
-	rsp := passgen.NewSourcePseudo(seed, source)
-	return rsp.Generate(length)
+
+func pseudoSource(seed int64, source string) passgen.PseudoGenerate {
+	return passgen.NewSourcePseudo(seed, source)
 }
 
 func GenerateCryptoCLI(length uint64, source string) string {
@@ -27,19 +28,24 @@ func GenerateCryptoCLI(length uint64, source string) string {
 
 func main() {
 	flag.Parse()
+	if *version {
+		fmt.Println("v1.0.2")
+		return
+	}
 	if *length == 0 {
 		flag.Usage()
 		return
 	}
 	switch *mode {
 		case 0:
+			pseudoSource := pseudoSource(*seed, *source)
 			if *count > 1 {
 				for range *count {
-					pass := GeneratePseudoCLI(*length, *seed, *source)
+					pass := pseudoSource.Generate(*length)
 					fmt.Println(pass)
 				}
 			} else {
-				pass := GeneratePseudoCLI(*length, *seed, *source)
+				pass := pseudoSource.Generate(*length)
 				fmt.Println(pass)
 			}
 		case 1:

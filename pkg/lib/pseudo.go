@@ -5,6 +5,9 @@ import (
 	"time"
 )
 
+type PseudoGenerate interface{
+	 Generate(length uint64) string
+}
 
 type randSourcePseudo struct {
 	rand *rand.Rand
