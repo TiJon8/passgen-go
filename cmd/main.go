@@ -4,15 +4,15 @@ import (
 	"flag"
 	"fmt"
 
-	passgen "github.com/TiJon8/passgen-go/internal"
+	passgen "github.com/TiJon8/passgen-go/pkg/lib"
 )
 
 var (
-	mode = flag.Uint("mode", 0, "mode password generation")
+	mode = flag.Uint("mode", 0, "mode password generation (0 - pseudo, 1 - crypto); default: 0")
 	length = flag.Uint64("len", 0, "required: password length")
 	seed = flag.Int64("seed", 0, "an optional seed for pseudo mode")
 	source = flag.String("source", "", "an optional characters string for password combinations")
-	count = flag.Int64("count", 1, "count of generation")
+	count = flag.Int64("count", 1, "count of generation; default: 1")
 )
 
 func GeneratePseudoCLI(length uint64, seed int64, source string) string {
@@ -26,9 +26,7 @@ func GenerateCryptoCLI(length uint64, source string) string {
 }
 
 func main() {
-	fmt.Println("OK")
 	flag.Parse()
-	fmt.Println(*length)
 	if *length == 0 {
 		flag.Usage()
 		return
@@ -55,22 +53,4 @@ func main() {
 				fmt.Println(pass)
 			}
 	}
-	
-
-	// for {
-	// 	password := make([]byte, length)
-	// 	for i := range password {
-	// 		password[i] = source[rand.Intn(len(source))]
-	// 	}
-	// 	fmt.Println(string(password))
-
-	// 	fmt.Printf("Сделать новый? Y/n\n",)
-	// 	var input string
-	// 	fmt.Scan(&input)
-	// 	if input != "Y" && input != "y" {
-	// 		return
-	// 	}
-	// 	fmt.Println("Введи длину:")
-	// 	fmt.Scan(&length)
-	// }
 }
