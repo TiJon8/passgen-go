@@ -13,7 +13,7 @@ var (
 	seed = flag.Int64("seed", 0, "an optional seed for pseudo mode")
 	source = flag.String("source", "", "an optional characters string for password combinations")
 	count = flag.Int64("count", 1, "count of generation; default: 1")
-	version = flag.Bool("version", true, "package version")
+	version = flag.Bool("version", false, "package version")
 )
 
 
